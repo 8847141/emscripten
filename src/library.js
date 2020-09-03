@@ -758,6 +758,7 @@ LibraryManager.library = {
   // ==========================================================================
   __builtin_prefetch: function(){},
 
+  __assert_fail__sig: 'viiii',
   __assert_fail: function(condition, filename, line, func) {
     abort('Assertion failed: ' + UTF8ToString(condition) + ', at: ' + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
   },
@@ -1667,6 +1668,7 @@ LibraryManager.library = {
   // sys/time.h
   // ==========================================================================
 
+  clock_gettime__sig: 'iii',
   clock_gettime__deps: ['emscripten_get_now', 'emscripten_get_now_is_monotonic', '$setErrNo'],
   clock_gettime: function(clk_id, tp) {
     // int clock_gettime(clockid_t clk_id, struct timespec *tp);
@@ -2881,10 +2883,12 @@ LibraryManager.library = {
   // emscripten.h
   // ==========================================================================
 
+  emscripten_run_script__sig: 'vi',
   emscripten_run_script: function(ptr) {
     {{{ makeEval('eval(UTF8ToString(ptr));') }}}
   },
 
+  emscripten_run_script_int__sig: 'ii',
   emscripten_run_script_int__docs: '/** @suppress{checkTypes} */',
   emscripten_run_script_int: function(ptr) {
     {{{ makeEval('return eval(UTF8ToString(ptr))|0;') }}}

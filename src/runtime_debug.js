@@ -54,4 +54,8 @@ function prettyPrint(arg) {
   }
   return arg;
 }
+
+function debugMsg(msg) {
+  if (runtimeDebug) err(msg);
+}
 #endif

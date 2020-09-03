@@ -823,8 +823,12 @@ function createWasm() {
     'a': asmLibraryArg,
 #else // MINIFY_WASM_IMPORTED_MODULES
     'env': asmLibraryArg,
-    '{{{ WASI_MODULE_NAME }}}': asmLibraryArg
+    '{{{ WASI_MODULE_NAME }}}': asmLibraryArg,
 #endif // MINIFY_WASM_IMPORTED_MODULES
+#if RELOCATABLE
+    'GOT.mem': new Proxy(asmLibraryArg, GOTHandler),
+    'GOT.func': new Proxy(asmLibraryArg, GOTHandler),
+#endif
   };
   // Load the wasm module and create an instance of using native support in the JS engine.
   // handle a generated wasm instance, receiving its exports and

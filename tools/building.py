@@ -1508,6 +1508,9 @@ def get_binaryen_feature_flags():
   ret = ['--mvp-features']
   if Settings.USE_PTHREADS:
     ret += ['--enable-threads']
+  # Only needed until https://reviews.llvm.org/D87537
+  if Settings.RELOCATABLE:
+    ret += ['--enable-mutable-globals']
   ret += Settings.BINARYEN_FEATURES
   return ret
 

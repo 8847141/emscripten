@@ -6561,7 +6561,7 @@ int main() {
 
     if expected_size is not None:
       # measure the wasm size without the name section
-      self.run_process([wasm_opt, 'a.out.wasm', '--strip-debug', '-o', 'a.out.nodebug.wasm'])
+      self.run_process([wasm_opt, 'a.out.wasm', '--strip-debug', '--all-features', '-o', 'a.out.nodebug.wasm'])
       wasm_size = os.path.getsize('a.out.nodebug.wasm')
       ratio = abs(wasm_size - expected_size) / float(expected_size)
       print('  seen wasm size: %d (expected: %d), ratio to expected: %f' % (wasm_size, expected_size, ratio))
@@ -6645,7 +6645,7 @@ int main() {
     # don't compare the # of functions in a main module, which changes a lot
     # TODO(sbc): Investivate why the number of exports is order of magnitude
     # larger for wasm backend.
-    'main_module_2': (['-O3', '-s', 'MAIN_MODULE=2'], [], [],  10652, True, True, True, False), # noqa
+    'main_module_2': (['-O3', '-s', 'MAIN_MODULE=2'], [], [],  10297, True, True, True, False), # noqa
   })
   def test_metadce_hello(self, *args):
     self.run_metadce_test('hello_world.cpp', *args)
